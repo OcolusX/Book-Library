@@ -48,7 +48,11 @@ public class MapAuthorStorage implements AuthorStorage {
 
     @Override
     public void removeAuthor(int id) {
-        authors.remove(id);
+        if(authors.containsKey(id)) {
+            authors.remove(id);
+        } else {
+            throw new IllegalArgumentException("Автор не найден");
+        }
     }
 
 }

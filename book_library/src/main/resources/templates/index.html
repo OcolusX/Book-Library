@@ -69,6 +69,8 @@
         </div>
     </div>
 
+    <h1>Авторы (<span th:text="${authorsCount}">0</span>)</h1>
+
     <div id="author-list">
         <div th:each="author : ${authors}">
             <a th:href="@{/author/getAuthor(id=${author.id})}" class="author-link" th:text="|${author.firstName} ${author.secondName}|"></a>

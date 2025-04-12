@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.book_library.Storage.AuthorStorage;
-import com.example.book_library.Storage.BookStorage;
 import com.example.book_library.dto.AuthorForm;
 import com.example.book_library.dto.BookForm;
+import com.example.book_library.services.AuthorService;
+import com.example.book_library.services.BookService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,16 +15,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DefaultController {
 
-    private final BookStorage bookStorage;
-    private final AuthorStorage authorStorage;
+    private final BookService bookService;
+    private final AuthorService authorService;
 
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("bookForm", new BookForm());
         model.addAttribute("authorForm", new AuthorForm());
-        model.addAttribute("booksCount", bookStorage.getAll().size());
-        model.addAttribute("books", bookStorage.getAll());
-        model.addAttribute("authors", authorStorage.getAll());
+        model.addAttribute("booksCount", bookService.getBooksCount());
+        model.addAttribute("books", bookService.getBooks());
+        model.addAttribute("authorsCount", authorService.getAouthorsCount());
+        model.addAttribute("authors", authorService.getAuthors());
         return "index";
     }
     
