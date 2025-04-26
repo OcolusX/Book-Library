@@ -1,7 +1,9 @@
 package com.example.book_library.Storage;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -28,7 +30,9 @@ public class MapAuthorStorage implements AuthorStorage {
 
     @Override
     public Collection<Author> getAll() {
-        return authors.values();
+        List<Author> sortedAuthors = new ArrayList<>(authors.values());
+        sortedAuthors.sort(null);
+        return sortedAuthors;
     }
 
     @Override

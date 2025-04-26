@@ -1,10 +1,14 @@
 package com.example.book_library.Storage;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +35,9 @@ public class MapBookStorage implements BookStorage {
 
     @Override
     public Collection<Book> getAll() {
-        return books.values();
+        List<Book> sortedBooks = new ArrayList<>(books.values());
+        sortedBooks.sort(null);
+        return sortedBooks;
     }
 
     @Override
@@ -52,18 +58,38 @@ public class MapBookStorage implements BookStorage {
     }
 
     @Override
-    public Book getByTitle(String title) {
+    public Collection<Book> getByTitle(String regexp) {
+        Pattern pattern = Pattern.compile(regexp);
+        Matcher matcher;
+        List<Book> resultList = new LinkedList<>();
         for (Book book : books.values()) {
-            if (book.getTitle().equals(title)) {
-                return book;
+            String title = book.getTitle().toLowerCase();
+            matcher = pattern.matcher(title);
+            if(matcher.find()) {
+                resultList.add(book);
             }
         }
-        return null;
+        return resultList;
     }
 
     @Override
     public void removeBook(int id) {
         books.remove(id);
+    }
+
+    @Override
+    public void removeByAuthor(Author author) {
+        List<Integer> ids = new LinkedList<>();
+        for(Book book : books.values()) {
+            if(book.getAuthor().getId() == author.getId()) {
+                ids.add(book.getId());
+            }
+        }
+        
+        for(Integer id : ids) {
+            books.remove(id);
+        }
+        
     }
 
 }

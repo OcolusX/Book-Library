@@ -20,6 +20,10 @@
             <td><label>Автор:</label></td>
             <td><a th:href="@{/author/getAuthor(id=${book.author.id})}" class="author-link" th:text="|${book.author.firstName} ${book.author.secondName}|"></a></td>
         </tr>
+        <tr>
+            <td><label>Жанр:</label></td>
+            <td><span th:text="${book.genre}"></td>
+        </tr>
     </table>
     <br>
     <form th:action="@{/book/removeBook(id=${book.id})}" method="post">

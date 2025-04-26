@@ -2,7 +2,7 @@
 package com.example.book_library.Model;
 
 
-public class Book {
+public class Book implements Comparable<Book> {
     
     private int id;
     
@@ -10,16 +10,23 @@ public class Book {
     private int year;
     private int pages;
     private Author author;
+    private Genre genre;
 
     public Book() {
 
     }
 
-    public Book(String title, int year, int pages, Author author) {
+    public Book(String title, int year, int pages, Author author, Genre genre) {
         this.title = title;
         this.year = year;
         this.pages = pages;
         this.author = author;
+        this.genre = genre;
+    }
+
+    @Override
+    public int compareTo(Book o) {
+        return this.title.compareTo(o.title);
     }
 
     public int getId() {
@@ -52,9 +59,18 @@ public class Book {
     public void setAuthor(Author author) {
         this.author = author;
     }
+    
 
     @Override
     public String toString() {
         return "Book [id = " + id + ", title = " + title + ", year = " + year + ", pages = " + pages + " ]";
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 }

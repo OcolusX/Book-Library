@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.book_library.Model.Author;
-import com.example.book_library.Storage.AuthorStorage;
 import com.example.book_library.dto.AuthorForm;
 import com.example.book_library.services.AuthorService;
 
@@ -15,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -48,14 +46,8 @@ public class AuthorController {
 
     @PostMapping("/removeAuthor{id}")
     public String removeAuthor(@RequestParam("id") Integer id) {
-        try {
-            authorService.removeAuthor(id);
-            return "redirect:/";
-        }
-        catch(IllegalArgumentException ex) {
-            ex.printStackTrace();
-            return "redirect:/";
-        }
+        authorService.removeAuthor(id);
+        return "redirect:/";
     }
     
     

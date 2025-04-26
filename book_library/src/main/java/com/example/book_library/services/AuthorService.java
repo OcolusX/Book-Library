@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.book_library.Model.Author;
 import com.example.book_library.Storage.AuthorStorage;
+import com.example.book_library.Storage.BookStorage;
 import com.example.book_library.dto.AuthorForm;
 
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthorService {
 
+    private final BookStorage bookStorage;
     private final AuthorStorage authorStorage;
 
     public Collection<Author> getAuthors() {
@@ -45,8 +47,11 @@ public class AuthorService {
         return author;
     }
 
-    // TODO: удалить все книги перед удалением автора
-    public void removeAuthor(Integer id) throws IllegalArgumentException {
+    
+    public void removeAuthor(Integer id) {
+        Author author = authorStorage.getById(id);
+        bookStorage.removeByAuthor(author);
+
         authorStorage.removeAuthor(id);
     }
     

@@ -12,4 +12,5 @@ public class BookForm {
     private int year;
     private int pages;
     private String author;
+    private String genre;
 }

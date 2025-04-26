@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.book_library.Model.Author;
 import com.example.book_library.Model.Book;
+import com.example.book_library.Model.Genre;
 import com.example.book_library.Storage.BookStorage;
 import com.example.book_library.dto.BookForm;
 
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BookService {
     
+
     private final AuthorService authorService;
     private final BookStorage bookStorage;
 
@@ -33,7 +35,8 @@ public class BookService {
             bookForm.getTitle(),
             bookForm.getYear(),
             bookForm.getPages(),
-            author
+            author,
+            Genre.valueOf(bookForm.getGenre())
         );
         bookStorage.addBook(book);
     }
@@ -46,12 +49,12 @@ public class BookService {
         return book;
     }
 
-    public Book getBook(String title) throws IllegalArgumentException{
-        Book book = bookStorage.getByTitle(title);
-        if(book == null) {
+    public Collection<Book> getBook(String regexp) throws IllegalArgumentException{
+        Collection<Book> books = bookStorage.getByTitle(regexp);
+        if(books == null) {
             throw new IllegalArgumentException("Книга не найдена");
         }
-        return book;
+        return books;
     }
 
     public void removeBook(Integer id) {

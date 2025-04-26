@@ -26,6 +26,10 @@
                     <td><label>Автор:</label></td>
                     <td><input type="text" th:field="*{author}"></td>
                 </tr>
+                <tr>
+                    <td><label>Жанр:</label></td>
+                    <td><input type="text" th:field="*{genre}"></td>
+                </tr>
             </table>
             <hr>
             <input type="submit" value="Добавить"></input>
@@ -57,8 +61,8 @@
     
     <h1>Библиотека (<span th:text="${booksCount}">0</span>)</h1>
 
-    <form th:action="@{/book/getByTitle(title=${title})}" method="get">
-        <input type="text" th:name="title">
+    <form th:action="@{/book/getByTitle(regexp=${regexp})}" method="get">
+        <input type="text" th:name="regexp">
         <input type="submit" value="Поиск">
     </form>
     <hr>
