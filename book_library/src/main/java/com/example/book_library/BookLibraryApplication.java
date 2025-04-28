@@ -10,7 +10,6 @@ public class BookLibraryApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BookLibraryApplication.class, args);
-
 	}
 
 }

@@ -28,7 +28,12 @@
                 </tr>
                 <tr>
                     <td><label>Жанр:</label></td>
-                    <td><input type="text" th:field="*{genre}"></td>
+                    <td>
+                        <select name="genre">
+                            <option th:each="genreOpt : ${T(com.example.book_library.Model.Genre).values()}" 
+                                th:value="${genreOpt}" th:text="${genreOpt.getTitle}"></option>
+                        </select>
+                    </td>
                 </tr>
             </table>
             <hr>
